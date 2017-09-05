@@ -24,6 +24,20 @@
 			<version>1.19</version>
 		</dependency>
 
+		<!-- Jersey Server -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
+		<!-- Connection between jersey and jackson -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
 		<!-- Main component, serialize JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -66,22 +80,8 @@
 			<version>2.9.0</version>
 		</dependency>
 
-		<!-- Connection between jersey and jackson -->
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.25.1</version>
-		</dependency>
-
-		<!-- Jersey Server -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>2.25.1</version>
-		</dependency>
-
 	</dependencies>
 	<build>
-		<finalName>wso2-hello</finalName>
+		<finalName>wso2Example</finalName>
 	</build>
 </project>
