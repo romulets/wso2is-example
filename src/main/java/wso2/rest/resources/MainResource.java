@@ -1,4 +1,4 @@
-package wso2.rest;
+package wso2.rest.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

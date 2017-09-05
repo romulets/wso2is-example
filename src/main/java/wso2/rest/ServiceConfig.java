@@ -5,9 +5,9 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 
 @ApplicationPath("wso2")
-public class ServicesConfig extends ResourceConfig {
+public class ServiceConfig extends ResourceConfig {
 
-	public ServicesConfig() {		
+	public ServiceConfig() {		
 		packages("com.fasterxml.jackson.jarxrs.json");
 		packages("wso2");
 	}
