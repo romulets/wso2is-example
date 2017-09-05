@@ -17,11 +17,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- REST Framework -->
+		<!-- Jersey Servelet Container -->
 		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>1.19</version>
+		    <groupId>org.glassfish.jersey.containers</groupId>
+		    <artifactId>jersey-container-servlet</artifactId>
+		    <version>2.25.1</version>
 		</dependency>
 
 		<!-- Jersey Server -->
@@ -29,6 +29,13 @@
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
 			<version>2.25.1</version>
+		</dependency>
+
+		<!-- Jersey Client -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.19</version>
 		</dependency>
 
 		<!-- Connection between jersey and jackson -->
