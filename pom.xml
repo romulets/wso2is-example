@@ -19,9 +19,9 @@
 
 		<!-- Jersey Servelet Container -->
 		<dependency>
-		    <groupId>org.glassfish.jersey.containers</groupId>
-		    <artifactId>jersey-container-servlet</artifactId>
-		    <version>2.25.1</version>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.25.1</version>
 		</dependency>
 
 		<!-- Jersey Server -->
@@ -87,7 +87,72 @@
 			<version>2.9.0</version>
 		</dependency>
 
+		<!-- wso2 dependecies -->
+		<dependency>
+			<groupId>org.apache.axis2.wso2</groupId>
+			<artifactId>axis2</artifactId>
+			<version>1.6.1.wso2v10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gdata.wso2</groupId>
+			<artifactId>gdata-core</artifactId>
+			<version>1.47.0.wso2v1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.google.common.wso2</groupId>
+			<artifactId>google-collect</artifactId>
+			<version>1.0.0.wso2v2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.ws.commons.axiom.wso2</groupId>
+			<artifactId>axiom</artifactId>
+			<version>1.2.11.wso2v4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.amber</groupId>
+			<artifactId>oauth2-client</artifactId>
+			<version>0.22.1358727-wso2v5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wso2.carbon</groupId>
+			<artifactId>org.wso2.carbon.identity.oauth.stub</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.wso2.carbon</groupId>
+			<artifactId>org.wso2.carbon.utils</artifactId>
+			<version>4.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>wso2-nexus</id>
+			<name>WSO2 internal Repository</name>
+			<url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>ignore</checksumPolicy>
+			</releases>
+		</repository>
+	</repositories>
+
+
 	<build>
 		<finalName>wso2Example</finalName>
 	</build>
