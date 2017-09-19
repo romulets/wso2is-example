@@ -1,6 +1,5 @@
 # Please copy it to {yours user's home path}/.wso2Example/
 
 authzEndpoint=https://localhost:9443/oauth2/authorize
-callBackUrl=http://localhost:8080/wso2Example/authorize
 authzGrantType=code
 scope=

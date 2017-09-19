@@ -1,4 +1,4 @@
-package responses;
+package romulets.wso2.rest.responses;
 
 import java.io.Serializable;
 

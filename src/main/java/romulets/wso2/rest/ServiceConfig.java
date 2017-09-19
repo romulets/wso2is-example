@@ -1,15 +1,15 @@
-package wso2.rest;
+package romulets.wso2.rest;
 
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
-@ApplicationPath("")
+@ApplicationPath("api")
 public class ServiceConfig extends ResourceConfig {
 
 	public ServiceConfig() {	
 		packages("com.fasterxml.jackson.jarxrs.json");
-		packages("wso2");
+		packages("romulets.wso2.rest");
 	}
 	
 }

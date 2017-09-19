@@ -1,4 +1,4 @@
-package wso2.rest.util;
+package romulets.wso2.rest.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,7 +12,6 @@ public class AuthProperties {
 	private static AuthProperties inst;
 	
 	private String authzEndpoint;
-	private String callBackUrl;
 	private String authzGrantType;
 	private String scope;
 	
@@ -37,7 +36,6 @@ public class AuthProperties {
 			props.load(new FileInputStream(PROPS_FILE));
 			
 			authzEndpoint = props.getProperty("authzEndpoint");
-			callBackUrl = props.getProperty("callBackUrl");
 			authzGrantType = props.getProperty("authzGrantType");
 			scope = props.getProperty("scope");
 			
@@ -50,10 +48,6 @@ public class AuthProperties {
 
 	public String getAuthzEndpoint() {
 		return authzEndpoint;
-	}
-
-	public String getCallBackUrl() {
-		return callBackUrl;
 	}
 
 	public String getAuthzGrantType() {

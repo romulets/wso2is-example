@@ -167,6 +167,10 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<outputDirectory>/opt/tomcat/webapps</outputDirectory>
+
+					<warSourceExcludes>src/main/resources/web-client/**</warSourceExcludes>
+					<packagingExcludes>src/main/resources/web-client/**</packagingExcludes>
+					<warSourceExcludes>src/main/resources/conf.prp</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
