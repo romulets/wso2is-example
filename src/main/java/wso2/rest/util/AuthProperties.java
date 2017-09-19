@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class AuthProperties {
 
-	private final static String PROPS_FILE = "~/.wso2Example/conf.prp";
+	private static String PROPS_FILE = "/.wso2Example/conf.prp";
 	
 	private static AuthProperties inst;
 	
@@ -27,8 +27,11 @@ public class AuthProperties {
 		return inst;
 	}
 	
-	private void initProperties() {
+	private void initProperties() {		
 		Properties props = new Properties();
+		
+		String homeDir = System.getenv("HOME");
+		PROPS_FILE = homeDir + PROPS_FILE;
 		
 		try {
 			props.load(new FileInputStream(PROPS_FILE));

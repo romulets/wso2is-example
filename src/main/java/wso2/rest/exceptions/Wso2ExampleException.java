@@ -1,0 +1,11 @@
+package wso2.rest.exceptions;
+
+public class Wso2ExampleException extends RuntimeException {
+
+	private static final long serialVersionUID = 33794008472695678L;
+
+	public Wso2ExampleException (String msg) {
+		super(msg);
+	}
+	
+}
