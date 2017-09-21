@@ -17,6 +17,8 @@ import romulets.wso2.rest.util.AuthProperties;
 @Path("authenticate")
 public class AuthenticationResource {
 
+	private static final String AUTHZ_GRANT_TYPE = "code";
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(@QueryParam("consumerKey") String consumerKey,
@@ -34,8 +36,11 @@ public class AuthenticationResource {
 		AuthProperties props = AuthProperties.inst();
 
 		OAuthClientRequest request = OAuthClientRequest.authorizationLocation(props.getAuthzEndpoint())
-				.setClientId(consumerKey).setRedirectURI(callbackUri)
-				.setResponseType(props.getAuthzGrantType()).setScope(props.getScope()).buildQueryMessage();
+				.setClientId(consumerKey)
+				.setRedirectURI(callbackUri)
+				.setResponseType(AUTHZ_GRANT_TYPE)
+				.setScope(props.getScope())
+				.buildQueryMessage();
 
 		String locationURI = request.getLocationUri();
 

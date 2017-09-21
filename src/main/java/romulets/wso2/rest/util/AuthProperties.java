@@ -12,7 +12,7 @@ public class AuthProperties {
 	private static AuthProperties inst;
 	
 	private String authzEndpoint;
-	private String authzGrantType;
+	private String tokenEndpoint;
 	private String scope;
 	
 	private AuthProperties() {
@@ -36,7 +36,7 @@ public class AuthProperties {
 			props.load(new FileInputStream(PROPS_FILE));
 			
 			authzEndpoint = props.getProperty("authzEndpoint");
-			authzGrantType = props.getProperty("authzGrantType");
+			tokenEndpoint = props.getProperty("tokenEndpoint");
 			scope = props.getProperty("scope");
 			
 		} catch (FileNotFoundException e) {
@@ -49,9 +49,9 @@ public class AuthProperties {
 	public String getAuthzEndpoint() {
 		return authzEndpoint;
 	}
-
-	public String getAuthzGrantType() {
-		return authzGrantType;
+	
+	public String getTokenEndpoint() {
+		return tokenEndpoint;
 	}
 
 	public String getScope() {

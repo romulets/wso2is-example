@@ -165,14 +165,24 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+
 				<configuration>
 					<outputDirectory>/opt/tomcat/webapps</outputDirectory>
-
-					<warSourceExcludes>src/main/resources/web-client/**</warSourceExcludes>
-					<packagingExcludes>src/main/resources/web-client/**</packagingExcludes>
-					<warSourceExcludes>src/main/resources/conf.prp</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>web-client/</exclude>
+					<exclude>conf.prp</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
 	</build>
 </project>
+

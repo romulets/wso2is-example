@@ -1,5 +1,5 @@
 # Please copy it to {yours user's home path}/.wso2Example/
 
 authzEndpoint=https://localhost:9443/oauth2/authorize
-authzGrantType=code
-scope=
+tokenEndpoint=https://localhost:9443/oauth2/token
+scope=email

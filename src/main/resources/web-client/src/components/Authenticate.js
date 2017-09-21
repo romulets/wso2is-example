@@ -13,7 +13,7 @@ export default class Authenticate extends Component {
   fetchAuthUri () {
 
     const callbackUri = "http://localhost:8080/wso2Example"
-    const consumerKey = ""
+    const consumerKey = "FsfebI97lO_bPxIZE_JT7PEDdDca"
     const authPath    = "http://localhost:8080/wso2Example/api/authenticate"
     const requestUri  = `${authPath}?consumerKey=${consumerKey}&callbackUri=${callbackUri}`
 
