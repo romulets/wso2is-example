@@ -2,4 +2,4 @@
 
 dir="`dirname ${BASH_SOURCE[0]}`/../src/main/resources/web-client"
 
-( cd $dir && npm run build ) 
+( cd $dir && npm start )

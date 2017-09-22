@@ -17,7 +17,7 @@ import org.apache.amber.oauth2.common.message.types.GrantType;
 
 import romulets.wso2.rest.util.AuthProperties;
 
-@Path("authorization")
+@Path("authorizate")
 public class AuthorizationResource {
 
 	public static final String ACCESS_TOKEN_PARAM = "access_token";
