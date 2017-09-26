@@ -4,11 +4,17 @@ import queryString from 'query-string'
 
 export default class Authenticate extends Component {
 
-  state = {
-    alreadyAuthenticated: false,
-    consumerKey: 'FsfebI97lO_bPxIZE_JT7PEDdDca',
-    authUri: '',
-    code: ''
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      alreadyAuthenticated: false,
+      consumerKey: 'FsfebI97lO_bPxIZE_JT7PEDdDca',
+      authUri: '',
+      code: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount () {
@@ -37,27 +43,30 @@ export default class Authenticate extends Component {
           this.setState({ authUri: message.authPage })
         }
 
-      })
-      .catch(error => {
+      }).catch(error => {
         console.error(error)
       })
   }
 
-  redirectToAuthenticate (code) {
-    const consumerKey = this.state.consumerKey
-    const query = queryString.stringify({code, consumerKey})
-    this.props.history.push("auhtorizate?" + query)
+  handleChange (event) {
+    this.setState({ consumerKey: event.target.value })
   }
 
   render () {
     if (this.state.alreadyAuthenticated) {
       return (
-        <Authorizate code={this.state.code}
-                    consumerKey={this.state.consumerKey} />
+        <Authorizate code={this.state.code} consumerKey={this.state.consumerKey} />
       )
     } else {
       return (
-        <a href={this.state.authUri}> Fazer Login no wso2 </a>
+        <div>
+          <label htmlFor="consumerKey">Consumer Key: </label>
+          <input type="text" id="consumerKey" value={this.state.consumerKey} onChange={this.handleChange} />
+
+          <br /><br />
+
+          <a href={this.state.authUri}> <button> Fazer Login no wso2 </button> </a>
+        </div>
       )
     }
   }

@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import org.apache.amber.oauth2.client.request.OAuthClientRequest;
 import org.apache.amber.oauth2.common.exception.OAuthSystemException;
 
-import romulets.wso2.rest.responses.AuthenticationResponse;
+import romulets.wso2.rest.response.AuthenticationResponse;
 import romulets.wso2.rest.util.AuthProperties;
 
 @Path("authenticate")

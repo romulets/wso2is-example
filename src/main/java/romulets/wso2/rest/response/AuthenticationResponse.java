@@ -1,4 +1,4 @@
-package romulets.wso2.rest.responses;
+package romulets.wso2.rest.response;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ public class AuthenticationResponse implements Serializable {
 	private String authPage;
 	
 	public AuthenticationResponse() {
-		
+		this("");
 	}
 	
 	public AuthenticationResponse(String authPage) {

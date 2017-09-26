@@ -15,6 +15,7 @@ import org.apache.amber.oauth2.common.exception.OAuthProblemException;
 import org.apache.amber.oauth2.common.exception.OAuthSystemException;
 import org.apache.amber.oauth2.common.message.types.GrantType;
 
+import romulets.wso2.rest.response.AuthorizationResponse;
 import romulets.wso2.rest.util.AuthProperties;
 
 @Path("authorizate")
@@ -25,29 +26,35 @@ public class AuthorizationResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response authorizate(@QueryParam("authorizationToken") String authToken,
-			@QueryParam("consumerKey") String consumerKey) {
+									@QueryParam("consumerKey") String consumerKey,
+									@QueryParam("callbackUri") String callbackUri,
+									@QueryParam("clientSecret") String clientSecret) {
 		
 		try {
-			String accessToken = requestAccessToken(consumerKey, authToken);
-			return Response.status(200).entity(accessToken).build();
+			String accessToken = requestAccessToken(consumerKey, authToken, callbackUri, clientSecret);
+			
+			return Response.status(200).entity(new AuthorizationResponse(accessToken)).build();
 		} catch (OAuthSystemException | OAuthProblemException e) {
 			return Response.status(500).entity(e).build();
 		}
 	}
 	
-	private String requestAccessToken(String consumerKey, String authToken) throws OAuthSystemException, OAuthProblemException {
+	private String requestAccessToken(String consumerKey, 
+										String authToken, 
+										String callbackUri,
+										String clientSecret) throws OAuthSystemException, OAuthProblemException {
+		
 		AuthProperties props = AuthProperties.inst();
 
 		OAuthClientRequest accessRequest = OAuthClientRequest.tokenLocation(props.getTokenEndpoint())
 				.setGrantType(GrantType.AUTHORIZATION_CODE)
 				.setClientId(consumerKey)
-				.setClientSecret("")
-				.setRedirectURI(props.getAuthzEndpoint())
+				.setClientSecret(clientSecret)
+				.setRedirectURI(callbackUri)
 				.setCode(authToken)
 				.buildBodyMessage();
-
+		
 		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-
 		OAuthClientResponse oAuthResponse = oAuthClient.accessToken(accessRequest);
 		String accessToken = oAuthResponse.getParam(ACCESS_TOKEN_PARAM);
 		
