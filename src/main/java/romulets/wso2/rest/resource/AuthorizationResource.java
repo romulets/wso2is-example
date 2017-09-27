@@ -21,44 +21,65 @@ import romulets.wso2.rest.util.AuthProperties;
 @Path("authorizate")
 public class AuthorizationResource {
 
-	public static final String ACCESS_TOKEN_PARAM = "access_token";
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response authorizate(@QueryParam("authorizationToken") String authToken,
-									@QueryParam("consumerKey") String consumerKey,
-									@QueryParam("callbackUri") String callbackUri,
-									@QueryParam("clientSecret") String clientSecret) {
-		
-		try {
-			String accessToken = requestAccessToken(consumerKey, authToken, callbackUri, clientSecret);
-			
-			return Response.status(200).entity(new AuthorizationResponse(accessToken)).build();
-		} catch (OAuthSystemException | OAuthProblemException e) {
-			return Response.status(500).entity(e).build();
-		}
-	}
-	
-	private String requestAccessToken(String consumerKey, 
-										String authToken, 
-										String callbackUri,
-										String clientSecret) throws OAuthSystemException, OAuthProblemException {
-		
-		AuthProperties props = AuthProperties.inst();
+    public static final String ACCESS_TOKEN_PARAM = "access_token";
 
-		OAuthClientRequest accessRequest = OAuthClientRequest.tokenLocation(props.getTokenEndpoint())
-				.setGrantType(GrantType.AUTHORIZATION_CODE)
-				.setClientId(consumerKey)
-				.setClientSecret(clientSecret)
-				.setRedirectURI(callbackUri)
-				.setCode(authToken)
-				.buildBodyMessage();
-		
-		OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-		OAuthClientResponse oAuthResponse = oAuthClient.accessToken(accessRequest);
-		String accessToken = oAuthResponse.getParam(ACCESS_TOKEN_PARAM);
-		
-		return accessToken;
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response authorizate(@QueryParam("authorizationToken") String authToken,
+            @QueryParam("consumerKey") String consumerKey, @QueryParam("callbackUri") String callbackUri,
+            @QueryParam("consumerSecret") String consumerSecret) {
+
+        try {
+
+            String accessToken = requestAccessToken(consumerKey, authToken, callbackUri, consumerSecret);
+            return Response.status(200).entity(new AuthorizationResponse(accessToken)).build();
+
+        } catch (OAuthSystemException | OAuthProblemException e) {
+            return Response.status(500).entity(e).build();
+        }
+    }
+
+    /**
+     * 
+     * @param consumerKey
+     * @param authToken
+     * @param callbackUri
+     * @param clientSecret
+     * @return the given token by wso2
+     * @throws OAuthSystemException
+     * @throws OAuthProblemException
+     */
+    private String requestAccessToken(String consumerKey, String authToken, String callbackUri, String consumerSecret)
+            throws OAuthSystemException, OAuthProblemException {
+
+        OAuthClientRequest accessRequest = getRequest(consumerKey, authToken, callbackUri, consumerSecret);
+        OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
+        OAuthClientResponse oAuthResponse = oAuthClient.accessToken(accessRequest);
+        String accessToken = oAuthResponse.getParam(ACCESS_TOKEN_PARAM);
+
+        return accessToken;
+    }
+
+    /**
+     * 
+     * @param consumerKey
+     * @param authToken
+     * @param callbackUri
+     * @param clientSecret
+     * @return configured request
+     * @throws OAuthSystemException
+     */
+    private OAuthClientRequest getRequest(String consumerKey, String authToken, String callbackUri, String consumerSecret)
+            throws OAuthSystemException {
+        
+        AuthProperties props = AuthProperties.inst();
+
+        return OAuthClientRequest.tokenLocation(props.getTokenEndpoint())
+                .setGrantType(GrantType.AUTHORIZATION_CODE)
+                .setClientId(consumerKey)
+                .setClientSecret(consumerSecret)
+                .setRedirectURI(callbackUri).setCode(authToken)
+                .buildBodyMessage();
+    }
 
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import queryString from 'query-string'
+import Validate from './Validate'
 
 export default class Authorizate extends Component {
 
@@ -14,25 +15,25 @@ export default class Authorizate extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.fetchAuthUri = this.fetchAuthUri.bind(this)
   }
 
   componentDidMount () {
     const { code, consumerKey } = this.props
 
     this.setState({code, consumerKey})
-    this.fetchAuthUri(code, consumerKey)
   }
 
-  fetchAuthUri (authorizationToken, consumerKey) {
+  fetchAuthUri (event) {
+    const { code, consumerKey, consumerSecret } = this.state
 
-    const clientSecret  = this.state.consumerSecret
     const callbackUri   = "http://localhost:8080/wso2Example"
     const authPath      = "http://localhost:8080/wso2Example/api/authorizate"
     const query         = queryString.stringify({
           consumerKey,
+          consumerSecret,
           callbackUri,
-          authorizationToken,
-          clientSecret
+          authorizationToken: code
     })
 
     const requestUri    = `${authPath}?${query}`
@@ -53,15 +54,21 @@ export default class Authorizate extends Component {
   }
 
   render () {
-    return (
-      <div>
-        <label htmlFor="consumerSecret">Consumer Secret: </label>
-        <input type="password" id="consumerSecret" value={this.state.consumerSecret} onChange={this.consumerSecret} />
+    if (this.state.accessToken.trim().length === 0) {
+      return (
+        <div>
+          <label htmlFor="consumerSecret">Consumer Secret: </label>
+          <input type="password" id="consumerSecret" defaultValue={this.state.consumerSecret} onChange={this.handleChange} />
 
-        <br /><br />
+          <br /><br />
 
-        <button onClick={this.fetchAuthUri}> Autorizar </button>
-      </div>
-    )
+          <button onClick={this.fetchAuthUri}> Authorizate </button>
+        </div>
+      )
+    } else {
+      return (
+        <Validate accessToken={this.state.accessToken} />
+      )
+    }
   }
 }

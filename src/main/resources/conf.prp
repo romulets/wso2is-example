@@ -2,4 +2,7 @@
 
 authzEndpoint=https://localhost:9443/oauth2/authorize
 tokenEndpoint=https://localhost:9443/oauth2/token
+tokenValidationEndpoint=https://localhost:9443/services/OAuth2TokenValidationService
 scope=email
+wso2User=admin
+wso2Password=admin

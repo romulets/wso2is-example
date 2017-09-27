@@ -65,7 +65,7 @@ export default class Authenticate extends Component {
 
           <br /><br />
 
-          <a href={this.state.authUri}> <button> Fazer Login no wso2 </button> </a>
+          <a href={this.state.authUri}> <button> Authenticate on wso2 </button> </a>
         </div>
       )
     }

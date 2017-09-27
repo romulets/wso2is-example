@@ -1,6 +1,5 @@
 package romulets.wso2.rest.resource;
 
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,34 +16,52 @@ import romulets.wso2.rest.util.AuthProperties;
 @Path("authenticate")
 public class AuthenticationResource {
 
-	private static final String AUTHZ_GRANT_TYPE = "code";
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticate(@QueryParam("consumerKey") String consumerKey,
-									@QueryParam("callbackUri") String callbackUri) {
+    private static final String AUTHZ_GRANT_TYPE = "code";
 
-		try {
-			String authUri = buildAuthUri(consumerKey, callbackUri);
-			return Response.status(200).entity(new AuthenticationResponse(authUri)).build();
-		} catch (OAuthSystemException e) {
-			return Response.status(500).entity(e).build();
-		}
-	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response authenticate(@QueryParam("consumerKey") String consumerKey,
+                                    @QueryParam("callbackUri") String callbackUri) {
 
-	private String buildAuthUri(String consumerKey, String callbackUri) throws OAuthSystemException {
-		AuthProperties props = AuthProperties.inst();
+        try {
+            
+            String authUri = buildAuthUri(consumerKey, callbackUri);
+            return Response.status(200).entity(new AuthenticationResponse(authUri)).build();
+            
+        } catch (OAuthSystemException e) {
+            return Response.status(500).entity(e).build();
+        }
+    }
+    
+    /**
+     * 
+     * @param consumerKey
+     * @param callbackUri
+     * @return the authentication URL built by amber API
+     * @throws OAuthSystemException
+     */
+    private String buildAuthUri(String consumerKey, String callbackUri) throws OAuthSystemException {
+        OAuthClientRequest request = getRequest(consumerKey, callbackUri);
+        String locationURI = request.getLocationUri();
+        return locationURI;
+    }
 
-		OAuthClientRequest request = OAuthClientRequest.authorizationLocation(props.getAuthzEndpoint())
-				.setClientId(consumerKey)
-				.setRedirectURI(callbackUri)
-				.setResponseType(AUTHZ_GRANT_TYPE)
-				.setScope(props.getScope())
-				.buildQueryMessage();
-
-		String locationURI = request.getLocationUri();
-
-		return locationURI;
-	}
+    /**
+     * 
+     * @param consumerKey
+     * @param callbackUri
+     * @return configured request
+     * @throws OAuthSystemException
+     */
+    private OAuthClientRequest getRequest(String consumerKey, String callbackUri) throws OAuthSystemException {
+        AuthProperties props = AuthProperties.inst();
+        
+        return OAuthClientRequest.authorizationLocation(props.getAuthzEndpoint())
+        .setClientId(consumerKey)
+        .setRedirectURI(callbackUri)
+        .setResponseType(AUTHZ_GRANT_TYPE)
+        .setScope(props.getScope())
+        .buildQueryMessage();
+    }
 
 }
