@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import queryString from 'query-string'
+import Logout from './Logout'
 
 export default class Validate extends Component {
 
@@ -22,9 +23,9 @@ export default class Validate extends Component {
   fetchValidateUri () {
     const { accessToken } = this.props
 
-    const authPath      = "http://localhost:8080/wso2Example/api/validate-token"
-    const query         = queryString.stringify({ accessToken })
-    const requestUri    = `${authPath}?${query}`
+    const authPath = 'http://localhost:8080/wso2Example/api/validate-token'
+    const query = queryString.stringify({ accessToken })
+    const requestUri = `${authPath}?${query}`
 
     fetch(requestUri)
       .then(response => response.json())
@@ -39,17 +40,23 @@ export default class Validate extends Component {
   render () {
     return (
       <div>
-        <p><strong>Your token { this.state.token } </strong></p>
+        <p>Your token <strong> { this.state.accessToken } </strong></p>
 
         <p>
           {
             this.state.isValid ?
             'Token is valid' :
-            'Your token has not been validate or it has been expired'
+            'Your token has not been validated or it has been expired'
           }
         </p>
 
         <button onClick={this.fetchValidateUri}> Validate again </button>
+
+        <br />
+        <br />
+
+        <Logout />
+
       </div>
     )
   }

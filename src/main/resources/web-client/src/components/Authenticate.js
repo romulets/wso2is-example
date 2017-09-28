@@ -1,73 +1,56 @@
+import { withCookies } from 'react-cookie'
 import React, { Component } from 'react'
 import Authorizate from './Authorizate'
 import queryString from 'query-string'
 
-export default class Authenticate extends Component {
+class Authenticate extends Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
-      alreadyAuthenticated: false,
-      consumerKey: 'FsfebI97lO_bPxIZE_JT7PEDdDca',
+      authenticated: false,
       authUri: '',
       code: ''
     }
-
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount () {
+    const { cookies } = this.props
     const { code } = queryString.parse(this.props.location.search)
 
-    if (code) {
-      this.setState({code, alreadyAuthenticated: true})
+    if (code || cookies.get('accessToken')) {
+      this.setState({code, authenticated: true})
     } else {
       this.fetchAuthUri()
     }
   }
 
   fetchAuthUri () {
-    const callbackUri = "http://localhost:8080/wso2Example"
-    const consumerKey = this.state.consumerKey
-    const authPath    = "http://localhost:8080/wso2Example/api/authenticate"
-    const requestUri  = `${authPath}?consumerKey=${consumerKey}&callbackUri=${callbackUri}`
+    const callbackUri = 'http://localhost:8080/wso2Example'
+    const authPath = 'http://localhost:8080/wso2Example/api/authenticate'
+    const requestUri = `${authPath}?callbackUri=${callbackUri}`
 
     fetch(requestUri)
       .then(response => response.json())
       .then(message => {
-        const { code, alreadyAuthenticated } = message
-        if (alreadyAuthenticated) {
-          this.setState({code, alreadyAuthenticated: true})
-        } else {
-          this.setState({ authUri: message.authPage })
-        }
-
+        this.setState({ authUri: message.authPage })
       }).catch(error => {
         console.error(error)
       })
   }
 
-  handleChange (event) {
-    this.setState({ consumerKey: event.target.value })
-  }
-
   render () {
-    if (this.state.alreadyAuthenticated) {
+    if (this.state.authenticated) {
       return (
-        <Authorizate code={this.state.code} consumerKey={this.state.consumerKey} />
+        <Authorizate code={this.state.code} />
       )
     } else {
       return (
-        <div>
-          <label htmlFor="consumerKey">Consumer Key: </label>
-          <input type="text" id="consumerKey" value={this.state.consumerKey} onChange={this.handleChange} />
-
-          <br /><br />
-
-          <a href={this.state.authUri}> <button> Authenticate on wso2 </button> </a>
-        </div>
+        <a href={this.state.authUri}> <button> Authenticate on wso2 </button> </a>
       )
     }
   }
 }
+
+export default withCookies(Authenticate)

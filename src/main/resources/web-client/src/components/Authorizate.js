@@ -1,47 +1,47 @@
+import { withCookies } from 'react-cookie'
 import React, { Component } from 'react'
 import queryString from 'query-string'
 import Validate from './Validate'
 
-export default class Authorizate extends Component {
+class Authorizate extends Component {
 
   constructor (props) {
     super(props)
 
     this.state = {
       code: '',
-      consumerKey: '',
-      accessToken: '',
-      consumerSecret: 'ETP5GysqqkB3yDbHfBLsIsPM0uca'
+      accessToken: ''
     }
 
-    this.handleChange = this.handleChange.bind(this)
     this.fetchAuthUri = this.fetchAuthUri.bind(this)
   }
 
   componentDidMount () {
-    const { code, consumerKey } = this.props
+    const { code, cookies } = this.props
+    const accessToken = cookies.get('accessToken')
 
-    this.setState({code, consumerKey})
+    this.setState({ code, accessToken })
   }
 
   fetchAuthUri (event) {
-    const { code, consumerKey, consumerSecret } = this.state
+    const { code } = this.state
 
-    const callbackUri   = "http://localhost:8080/wso2Example"
-    const authPath      = "http://localhost:8080/wso2Example/api/authorizate"
-    const query         = queryString.stringify({
-          consumerKey,
-          consumerSecret,
-          callbackUri,
-          authorizationToken: code
+    const callbackUri = 'http://localhost:8080/wso2Example'
+    const authPath = 'http://localhost:8080/wso2Example/api/authorizate'
+    const query = queryString.stringify({
+            callbackUri,
+            authorizationToken: code
     })
 
-    const requestUri    = `${authPath}?${query}`
+    const requestUri = `${authPath}?${query}`
 
     fetch(requestUri)
       .then(response => response.json())
       .then(message => {
         const { accessToken } = message
+        const { cookies } = this.props
+
+        cookies.set('accessToken', accessToken)
         this.setState({ accessToken })
       })
       .catch(error => {
@@ -49,21 +49,10 @@ export default class Authorizate extends Component {
       })
   }
 
-  handleChange (event) {
-    this.setState({ consumerSecret: event.target.value })
-  }
-
   render () {
-    if (this.state.accessToken.trim().length === 0) {
+    if (!this.state.accessToken || this.state.accessToken.trim().length === 0) {
       return (
-        <div>
-          <label htmlFor="consumerSecret">Consumer Secret: </label>
-          <input type="password" id="consumerSecret" defaultValue={this.state.consumerSecret} onChange={this.handleChange} />
-
-          <br /><br />
-
-          <button onClick={this.fetchAuthUri}> Authorizate </button>
-        </div>
+        <button onClick={this.fetchAuthUri}> Authorizate </button>
       )
     } else {
       return (
@@ -72,3 +61,5 @@ export default class Authorizate extends Component {
     }
   }
 }
+
+export default withCookies(Authorizate)

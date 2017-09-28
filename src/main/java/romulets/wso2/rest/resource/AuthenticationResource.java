@@ -7,61 +7,27 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.amber.oauth2.client.request.OAuthClientRequest;
 import org.apache.amber.oauth2.common.exception.OAuthSystemException;
 
 import romulets.wso2.rest.response.AuthenticationResponse;
-import romulets.wso2.rest.util.AuthProperties;
+import romulets.wso2.rest.service.AuthenticationService;
 
 @Path("authenticate")
 public class AuthenticationResource {
 
-    private static final String AUTHZ_GRANT_TYPE = "code";
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authenticate(@QueryParam("consumerKey") String consumerKey,
-                                    @QueryParam("callbackUri") String callbackUri) {
-
+    public Response authenticate(@QueryParam("callbackUri") String callbackUri) {
+        AuthenticationService service = new AuthenticationService();
+        
         try {
             
-            String authUri = buildAuthUri(consumerKey, callbackUri);
-            return Response.status(200).entity(new AuthenticationResponse(authUri)).build();
+            String authUri = service.buildAuthUri(callbackUri);
+            return Response.ok(new AuthenticationResponse(authUri)).build();
             
         } catch (OAuthSystemException e) {
-            return Response.status(500).entity(e).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
-    }
-    
-    /**
-     * 
-     * @param consumerKey
-     * @param callbackUri
-     * @return the authentication URL built by amber API
-     * @throws OAuthSystemException
-     */
-    private String buildAuthUri(String consumerKey, String callbackUri) throws OAuthSystemException {
-        OAuthClientRequest request = getRequest(consumerKey, callbackUri);
-        String locationURI = request.getLocationUri();
-        return locationURI;
-    }
-
-    /**
-     * 
-     * @param consumerKey
-     * @param callbackUri
-     * @return configured request
-     * @throws OAuthSystemException
-     */
-    private OAuthClientRequest getRequest(String consumerKey, String callbackUri) throws OAuthSystemException {
-        AuthProperties props = AuthProperties.inst();
-        
-        return OAuthClientRequest.authorizationLocation(props.getAuthzEndpoint())
-        .setClientId(consumerKey)
-        .setRedirectURI(callbackUri)
-        .setResponseType(AUTHZ_GRANT_TYPE)
-        .setScope(props.getScope())
-        .buildQueryMessage();
     }
 
 }

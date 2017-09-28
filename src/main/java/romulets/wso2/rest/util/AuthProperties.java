@@ -12,11 +12,15 @@ public class AuthProperties {
     private static AuthProperties inst;
 
     private String scope;
-    private String wso2User;
-    private String wso2Password;
     private String authzEndpoint;
     private String tokenEndpoint;
     private String tokenValidationEndpoint;
+    
+    private String wso2User;
+    private String wso2Password;
+    
+    private String consumerKey;
+    private String consumerSecret;
 
     private AuthProperties() {
         initProperties();
@@ -39,11 +43,15 @@ public class AuthProperties {
             props.load(new FileInputStream(PROPS_FILE));
 
             scope = props.getProperty("scope");
-            wso2User = props.getProperty("wso2User");
-            wso2Password = props.getProperty("wso2Password");
             authzEndpoint = props.getProperty("authzEndpoint");
             tokenEndpoint = props.getProperty("tokenEndpoint");
             tokenValidationEndpoint = props.getProperty("tokenValidationEndpoint");
+            
+            wso2User = props.getProperty("wso2User");
+            wso2Password = props.getProperty("wso2Password");
+            
+            consumerKey = props.getProperty("consumerKey");
+            consumerSecret = props.getProperty("consumerSecret");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -74,6 +82,14 @@ public class AuthProperties {
 
     public String getWso2Password() {
         return wso2Password;
+    }
+
+    public String getConsumerKey() {
+        return consumerKey;
+    }
+
+    public String getConsumerSecret() {
+        return consumerSecret;
     }
 
 }

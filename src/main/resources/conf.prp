@@ -6,3 +6,5 @@ tokenValidationEndpoint=https://localhost:9443/services/OAuth2TokenValidationSer
 scope=email
 wso2User=admin
 wso2Password=admin
+consumerKey=KEY
+consumerSecret=SECRET
