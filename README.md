@@ -1,4 +1,4 @@
-# wso2is-example
+# Wso2 IS Example
 A simple[Wso2 Identity Server v5.30](https://docs.wso2.com/display/IS530/) example
 
 - [Introduction](#introduction)
