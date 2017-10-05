@@ -28,13 +28,13 @@ class Authenticate extends Component {
 
   fetchAuthUri () {
     const callbackUri = 'http://localhost:8080/wso2Example'
-    const authPath = 'http://localhost:8080/wso2Example/api/authenticate'
+    const authPath = 'http://localhost:8080/wso2Example/api/authentication/uri'
     const requestUri = `${authPath}?callbackUri=${callbackUri}`
 
     fetch(requestUri)
       .then(response => response.json())
       .then(message => {
-        this.setState({ authUri: message.authPage })
+        this.setState({ authUri: message.uri })
       }).catch(error => {
         console.error(error)
       })

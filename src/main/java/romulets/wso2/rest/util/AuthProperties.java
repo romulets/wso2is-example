@@ -14,10 +14,12 @@ public class AuthProperties {
     private String scope;
     private String authzEndpoint;
     private String tokenEndpoint;
+    private String logoutEndpoint;
     private String tokenValidationEndpoint;
     
     private String wso2User;
     private String wso2Password;
+    private String serviceProviderName;
     
     private String consumerKey;
     private String consumerSecret;
@@ -45,10 +47,12 @@ public class AuthProperties {
             scope = props.getProperty("scope");
             authzEndpoint = props.getProperty("authzEndpoint");
             tokenEndpoint = props.getProperty("tokenEndpoint");
+            logoutEndpoint = props.getProperty("logoutEndpoint");
             tokenValidationEndpoint = props.getProperty("tokenValidationEndpoint");
             
             wso2User = props.getProperty("wso2User");
             wso2Password = props.getProperty("wso2Password");
+            serviceProviderName = props.getProperty("serviceProviderName");
             
             consumerKey = props.getProperty("consumerKey");
             consumerSecret = props.getProperty("consumerSecret");
@@ -71,11 +75,19 @@ public class AuthProperties {
     public String getTokenEndpoint() {
         return tokenEndpoint;
     }
+    
+    public String getLogoutEndpoint() {
+        return logoutEndpoint;
+    }
 
     public String getTokenValidationEndpoint() {
         return tokenValidationEndpoint;
     }
 
+    public String getServiceProviderName() {
+        return serviceProviderName;
+    }
+    
     public String getWso2User() {
         return wso2User;
     }

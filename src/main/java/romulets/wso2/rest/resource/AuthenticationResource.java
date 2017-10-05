@@ -9,25 +9,35 @@ import javax.ws.rs.core.Response;
 
 import org.apache.amber.oauth2.common.exception.OAuthSystemException;
 
-import romulets.wso2.rest.response.AuthenticationResponse;
+import romulets.wso2.rest.response.GetUriResponse;
 import romulets.wso2.rest.service.AuthenticationService;
 
-@Path("authenticate")
+@Path("authentication")
 public class AuthenticationResource {
 
     @GET
+    @Path("uri")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authenticate(@QueryParam("callbackUri") String callbackUri) {
+    public Response getAuthUrl(@QueryParam("callbackUri") String callbackUri) {
         AuthenticationService service = new AuthenticationService();
         
         try {
             
             String authUri = service.buildAuthUri(callbackUri);
-            return Response.ok(new AuthenticationResponse(authUri)).build();
+            return Response.ok(new GetUriResponse(authUri)).build();
             
         } catch (OAuthSystemException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e).build();
         }
+    }
+    
+    @GET
+    @Path("logout-uri")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLogoutUrl(@QueryParam("callbackUri") String callbackUri) {
+        AuthenticationService service = new AuthenticationService();
+        String logoutUri = service.buildLogoutUri(callbackUri);
+        return Response.ok(new GetUriResponse(logoutUri)).build();
     }
 
 }
