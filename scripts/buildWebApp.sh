@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Build web app and deploy the generated js and html to webapp
+
 fileDir=`dirname ${BASH_SOURCE[0]}`
 startDir=`pwd`
 
@@ -8,9 +10,8 @@ rootDir=`pwd`
 mainDir=$rootDir/src/main
 webClientDir=$mainDir/resources/web-client
 
+# Build web app
 ( cd $webClientDir && npm run build )
-
-#!/bin/bash
 
 echo "Deploying scripts to webapp..."
 
@@ -25,9 +26,9 @@ cp -r $webClientDir/build/static/* \
 looked_for='/static/js/'
 replacement='/wso2Example/static/js/'
 html=`cat $webClientDir/build/index.html`
-
 html=${html/$looked_for/$replacement}
 
+# Replace index.jsp content
 echo $html > $mainDir/webapp/index.jsp
 
 echo "Deployed"

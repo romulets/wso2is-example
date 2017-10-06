@@ -7,6 +7,10 @@ import java.util.Properties;
 
 public class AuthProperties {
 
+    /**
+     * If you want your conf.prp file in a different location please update 
+     * it here and in the method initPrtopsFileLocation()
+     */
     private static String PROPS_FILE = "/.wso2Example/conf.prp";
 
     private static AuthProperties inst;
@@ -25,6 +29,7 @@ public class AuthProperties {
     private String consumerSecret;
 
     private AuthProperties() {
+        initPropsFileLocation();
         initProperties();
     }
 
@@ -34,12 +39,14 @@ public class AuthProperties {
 
         return inst;
     }
-
-    private void initProperties() {
-        Properties props = new Properties();
-
+    
+    private void initPropsFileLocation() {
         String homeDir = System.getenv("HOME");
         PROPS_FILE = homeDir + PROPS_FILE;
+    }
+    
+    private void initProperties() {
+        Properties props = new Properties();
 
         try {
             props.load(new FileInputStream(PROPS_FILE));
