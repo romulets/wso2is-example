@@ -43,4 +43,4 @@ _Obs: the web client built in react isn't the most wonderful code in the world. 
 
 ## Contact
 
-Any problems, critics, sugestions, warnings, messages or whatever please message me at `romulodefarias@gmail.com`
+Any problems, critics, sugestions, warnings, messages or whatever please message me at [romulodefarias@gmail.com](mailto:romulodefarias@gmail.com)
