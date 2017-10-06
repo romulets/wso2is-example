@@ -19,7 +19,20 @@ _Obs: the web client built in react isn't the most wonderful code in the world. 
 
 ## Setting up and Running
 
-_Working on it..._
+1. Set up the [playground example](https://docs.wso2.com/display/IS530/Basic+Client+Profile+with+Playground) given by wso2
+
+2. `git clone` this project wherever you want on your computer
+
+3. Copy [conf.prp](src/main/resources/conf.prp) to `${tomcat user's home path}/.wso2Example/` or update the file's location in  [AuthProperties.java](src/main/java/romulets/wso2/rest/util/AuthProperties.java)
+
+4. Update the copied conf.prp with the correct values
+
+5. Update [pom.xml](pom.xml) `<outputDirectory>` to matches with your webapps location (or remove it if you don't mind copying the .war after every mvn install)
+
+6. `mvn install`
+
+7. If you removed the `<outputDirectory>` deploy it manually to tomcat and open `http://localhost:8080/wso2Example/`
+
 
 ## Developing
 
