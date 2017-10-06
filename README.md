@@ -37,7 +37,7 @@ This project has three entities which communicates among themselves:
 
 The java API has nothing tricky to develop, just go on.
 
-The react client is normal too, although you must copy the builded js and html files to the [webapp path](src/main/webapp). I've built some [scripts](scritps/) to make the developement and build easier, it works only for linux though. Feel free to build the windows' scripts and contribute to project!
+The react client is normal too, although you must copy the builded js and html files to the [webapp path](src/main/webapp). I've built some [scripts](scritps/) to make the developement and build easier, it works only for linux though. Feel free to build the windows' scripts and contribute to the project!
 
 _Obs: the web client built in react isn't the most wonderful code in the world. Feel free to improve it._
 
