@@ -1,5 +1,5 @@
 # Wso2 IS Example
-A simple[Wso2 Identity Server v5.30](https://docs.wso2.com/display/IS530/) example
+A simple [Wso2 Identity Server v5.30](https://docs.wso2.com/display/IS530/) example
 
 - [Introduction](#introduction)
 - [Setting up and Running](#setting-up-and-running)
@@ -26,7 +26,7 @@ This project has three entities which communicates among themselves:
 
 4. Update the copied conf.prp with the correct values
 
-5. Update [pom.xml](pom.xml) `<outputDirectory>` to matches with your webapps location (or remove it if you don't mind copying the .war after every mvn install)
+5. Update [pom.xml](pom.xml) `<outputDirectory>` to matches with your tomcat webapps path (or remove it if you don't mind copying the `.war` after every install)
 
 6. `mvn install`
 
@@ -39,7 +39,7 @@ The java API has nothing tricky to develop, just go on.
 
 The react client is normal too, although you must copy the builded js and html files to the [webapp path](src/main/webapp). I've built some [scripts](scritps/) to make the developement and build easier, it works only for linux though. Feel free to build the windows' scripts and contribute to project!
 
-_Obs: the web client built in react isn't the most wonderful code in the world. Feel free to improve it :smiley:_
+_Obs: the web client built in react isn't the most wonderful code in the world. Feel free to improve it._
 
 ## Contact
 
