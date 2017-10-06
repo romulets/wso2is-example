@@ -5,6 +5,7 @@ A simple[Wso2 Identity Server v5.30](https://docs.wso2.com/display/IS530/) examp
 - [Setting up and Running](#setting-up-and-running)
 - [Developing](#developing)
 - [Contributing](docs/CONTRIBUTING.md)
+- [Contact](#contact)
 
 ## Introduction
 
@@ -14,8 +15,6 @@ This project has three entities which communicates among themselves:
 - [Web Client (React)](src/main/resources/web-client)
 - [Service Provider (Jersey)](src/main/java/romulets/wso2/rest)
 - Wso2 Identity Server
-
-_Obs: the web client built in react isn't the most wonderful code in the world. Please feel free to improve it :)_
 
 ## Setting up and Running
 
@@ -36,4 +35,12 @@ _Obs: the web client built in react isn't the most wonderful code in the world. 
 
 ## Developing
 
-_Working on it..._
+The java API has nothing tricky to develop, just go on.
+
+The react client is normal too, although you must copy the builded js and html files to the [webapp path](src/main/webapp). I've built some [scripts](scritps/) to make the developement and build easier, it works only for linux though. Feel free to build the windows' scripts and contribute to project!
+
+_Obs: the web client built in react isn't the most wonderful code in the world. Feel free to improve it :smiley:_
+
+## Contact
+
+Any problems, critics, sugestions, warnings, messages or whatever please message me at `romulodefarias@gmail.com`
