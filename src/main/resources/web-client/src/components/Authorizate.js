@@ -26,8 +26,8 @@ class Authorizate extends Component {
   fetchAuthUri (event) {
     const { code } = this.state
 
-    const callbackUri = 'http://localhost:8080/wso2Example'
-    const authPath = 'http://localhost:8080/wso2Example/api/authorizate'
+    const callbackUri = document.location.href
+    const authPath = document.location.origin + '/wso2Example/api/authorizate'
     const query = queryString.stringify({
             callbackUri,
             authorizationToken: code

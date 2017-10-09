@@ -23,7 +23,7 @@ export default class Validate extends Component {
   fetchValidateUri () {
     const { accessToken } = this.props
 
-    const authPath = 'http://localhost:8080/wso2Example/api/validate-token'
+    const authPath = document.location.origin + '/wso2Example/api/validate-token'
     const query = queryString.stringify({ accessToken })
     const requestUri = `${authPath}?${query}`
 
