@@ -24,8 +24,10 @@ class Logout extends Component {
   }
 
   fetchLogoutUri () {
-    const callbackUri = document.location.href
-    const authPath = document.location.origin + '/wso2Example/api/authentication/logout-uri'
+    const location = window.location
+
+    const callbackUri = location.origin + location.pathname
+    const authPath = location.origin + '/wso2Example/api/authentication/logout-uri'
     const requestUri = `${authPath}?callbackUri=${callbackUri}`
 
     fetch(requestUri)

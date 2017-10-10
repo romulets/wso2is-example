@@ -27,8 +27,10 @@ class Authenticate extends Component {
   }
 
   fetchAuthUri () {
-    const callbackUri = document.location.href
-    const authPath = document.location.origin + '/wso2Example/api/authentication/uri'
+    const location = window.location
+
+    const callbackUri = location.origin + location.pathname
+    const authPath = location.origin + '/wso2Example/api/authentication/uri'
     const requestUri = `${authPath}?callbackUri=${callbackUri}`
 
     fetch(requestUri)

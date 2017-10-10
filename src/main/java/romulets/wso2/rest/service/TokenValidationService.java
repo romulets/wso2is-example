@@ -29,6 +29,7 @@ public class TokenValidationService {
         oauthReq.setAccessToken(getOAuthToken(accessToken));
 
         OAuth2TokenValidationResponseDTO resp = getValidationService().validate(oauthReq);
+        
         return resp.getValid();
     }
 
