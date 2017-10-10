@@ -9,15 +9,34 @@ export default class Validate extends Component {
 
     this.state = {
       isValid: false,
-      accessToken: ''
+      accessToken: '',
+      userInfo: null
     }
 
     this.fetchValidateUri = this.fetchValidateUri.bind(this)
+    this.getUserInformation = this.getUserInformation.bind(this)
   }
 
   componentDidMount () {
     const { accessToken } = this.props
     this.setState({ accessToken })
+  }
+
+  getUserInformation () {
+    const { accessToken } = this.props
+
+    const authPath = window.location.origin + '/wso2Example/api/user-information'
+    const query = queryString.stringify({ accessToken })
+    const requestUri = `${authPath}?${query}`
+
+    fetch(requestUri)
+      .then(response => response.json())
+      .then(message => {
+        console.log(message)
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 
   fetchValidateUri () {
@@ -50,7 +69,14 @@ export default class Validate extends Component {
           }
         </p>
 
-        <button onClick={this.fetchValidateUri}> Validate again </button>
+
+
+        <button onClick={this.fetchValidateUri}> Validate </button>
+
+        <br />
+        <br />
+
+        <button onClick={this.getUserInformation}> Get user information </button>
 
         <br />
         <br />

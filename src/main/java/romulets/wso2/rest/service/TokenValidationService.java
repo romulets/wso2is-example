@@ -25,12 +25,22 @@ public class TokenValidationService {
      * @throws RemoteException
      */
     public boolean isTokenValid(String accessToken) throws RemoteException {
+        OAuth2TokenValidationResponseDTO resp = getTokenValidation(accessToken);
+        return resp.getValid();
+    }
+    
+    /**
+     * 
+     * @param accessToken
+     * @return
+     * @throws AxisFault
+     * @throws RemoteException
+     */
+    public OAuth2TokenValidationResponseDTO getTokenValidation(String accessToken) throws AxisFault, RemoteException {
         OAuth2TokenValidationRequestDTO oauthReq = new OAuth2TokenValidationRequestDTO();
         oauthReq.setAccessToken(getOAuthToken(accessToken));
 
-        OAuth2TokenValidationResponseDTO resp = getValidationService().validate(oauthReq);
-        
-        return resp.getValid();
+        return getValidationService().validate(oauthReq);        
     }
 
     /**

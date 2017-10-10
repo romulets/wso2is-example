@@ -4,6 +4,7 @@
 logoutEndpoint=https://localhost:9443/samlsso
 tokenEndpoint=https://localhost:9443/oauth2/token
 authzEndpoint=https://localhost:9443/oauth2/authorize
+userInformationEndpoint=https://localhost:9443/oauth2/userinfo?schema=openid
 tokenValidationEndpoint=https://localhost:9443/services/OAuth2TokenValidationService
 
 # User and password to validate token

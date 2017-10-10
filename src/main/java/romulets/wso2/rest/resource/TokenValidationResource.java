@@ -19,7 +19,6 @@ public class TokenValidationResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response authorizate(@QueryParam("accessToken") String accessToken) {
-        
         TokenValidationService service = new TokenValidationService();
         
         try {
